@@ -44,24 +44,31 @@ def find_max_dice_numbers(draws: list):
         color_info_list = draw.split(',')
         for color_info in color_info_list:
             color_match = re.search(regex_color_info, color_info)
+            if color_match is None:
+                continue
             dice_number = int(color_match.group('number'))
             color = color_match.group('color')
             if seen_colors.get(color) is not None:
                 seen_colors[color] = max(seen_colors[color], dice_number)
 
-    time.sleep(0.1)
     return seen_colors
 
 
 
 def main():
-    # games = read_input_file().split('\n')
-    # for game in games:
+    result = 0
+    games = read_input_file().split('\n')
+    for game in games:
     #     seen_colors = read_game_info(game)
-    for line in example.split('\n'):
-        game_number, draws = read_game_info(line)
+    # for game in example.split('\n'):
+        game_number, draws = read_game_info(game)
         max_seen_colors = find_max_dice_numbers(draws)
-        print(f"Line: {line},\nColors: {max_seen_colors}")
+        colors_possible = all([max_seen_colors[color] < MAX_DICE_NUMBERS[color] for color in COLORS])
+        if colors_possible:
+            result += game_number
+        time.sleep(0.1)
+    
+    print(result)
     time.sleep(0.1)
 
 if __name__ == "__main__":
