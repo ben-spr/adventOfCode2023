@@ -3,8 +3,9 @@ import re
 
 REL_PATH_INPUT_FILE = '01_input.txt'
 
-def read_text_file_to_string(path):
-    with open(path, 'r') as f:
+def read_input_file() -> str:
+    filepath = pathlib.Path(__file__).parent.resolve() / REL_PATH_INPUT_FILE
+    with open(filepath, 'r') as f:
         file_text = f.read()
     return file_text
 
@@ -49,8 +50,7 @@ def split_text_into_lines(text: str):
     return [line.strip() for line in lines]
 
 def main():
-    filepath = pathlib.Path(__file__).parent.resolve() / REL_PATH_INPUT_FILE
-    text = read_text_file_to_string(filepath)
+    text = read_text_file_to_string()
     lines = split_text_into_lines(text)
     result = sum(list(map(find_number_from_both_sides_of_string, lines)))
     print(f"Sum of all numbers: {result}")
