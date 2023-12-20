@@ -8,6 +8,8 @@ import pathlib
 import re
 import time
 
+import base_functions
+
 REL_PATH_INPUT_FILE = '02_input.txt'
 
 COLORS = {
@@ -21,13 +23,6 @@ MAX_DICE_NUMBERS = {
     'green': 13,
     'blue': 14
 }
-
-def read_input_file() -> str:
-    filepath = pathlib.Path(__file__).parent.resolve() / REL_PATH_INPUT_FILE
-    with open(filepath, 'r') as f:
-        file_text = f.read()
-    return file_text
-
 
 def read_game_info(line: str):
     regex = re.compile(r'(Game )(?P<game_number>\d*)(.*)')
@@ -56,8 +51,9 @@ def find_max_dice_numbers(draws: list):
 
 
 def main():
+    input_path = pathlib.Path(__file__).parent.resolve() / REL_PATH_INPUT_FILE
     result = 0
-    games = read_input_file().split('\n')
+    games = base_functions.read_input_file_to_string(input_path).split('\n')
     for game in games:
     #     seen_colors = read_game_info(game)
     # for game in example.split('\n'):
