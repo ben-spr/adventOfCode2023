@@ -53,16 +53,16 @@ def find_max_dice_numbers(draws: list):
 def main():
     input_path = pathlib.Path(__file__).parent.resolve() / REL_PATH_INPUT_FILE
     result = 0
-    games = base_functions.read_input_file_to_string(input_path).split('\n')
+    games = base_functions.read_input_file_lines_to_list(input_path)
     for game in games:
     #     seen_colors = read_game_info(game)
     # for game in example.split('\n'):
         game_number, draws = read_game_info(game)
         max_seen_colors = find_max_dice_numbers(draws)
-        colors_possible = all([max_seen_colors[color] < MAX_DICE_NUMBERS[color] for color in COLORS])
+        colors_possible = all([max_seen_colors[color] <= MAX_DICE_NUMBERS[color] for color in COLORS])
         if colors_possible:
             result += game_number
-        time.sleep(0.1)
+        # time.sleep(0.1)
     
     print(result)
     time.sleep(0.1)
