@@ -11,39 +11,42 @@ SEEN = set()
 
 NUMBERS = set([number for number in "0123456789"])
 
-def task_1(games: list):
-    height = len(games)
-    width = len(games[0])
-    for i in range(height):
-        for j in range(width):
-            current_char = games[i][j]
-            if current_char in SEEN or current_char not in NUMBERS:
-                continue
-            if not has_symbol_in_adjacency(games, (i, j)):
-                continue
-            start = j
-            while j < width and games[i][j] in NUMBERS:
-                j += 1
-            num_str = games[i][start:j]
-            num = int(num_str)
-                
 
-def has_symbol_in_adjacency(games: list[str], coordinates: tuple(int, int)) -> bool:
-    i, j = coordinates
-    stack = games[i][j]
-    while stack:
-        current_char = stack.pop()
-        if not current_char.isalnum() and current_char != '.':
-            return True
-        if current_char.isdigit():
-            # add neighbours
-            continue
 
-def main():
-    games = base_functions.read_input_file_lines_to_list(INPUT_PATH)
-    task_1(games)
-    # task_2(games)
+class GearRatioSolution(base_functions.Solution):
+    def solve(self):
+        self.games = base_functions.read_text_file_lines_to_list(INPUT_PATH)
+        # self.task_1()
     
+    def task_1(self):
+        height = len(self.games)
+        width = len(self.games[0])
+        for i in range(height):
+            for j in range(width):
+                current_char = self.games[i][j]
+                if current_char in SEEN or current_char not in NUMBERS:
+                    continue
+                if not self.has_symbol_in_adjacency(self.games, (i, j)):
+                    continue
+                start = j
+                while j < width and self.games[i][j] in NUMBERS:
+                    j += 1
+                num_str = self.games[i][start:j]
+                num = int(num_str)
+                    
+
+    def has_symbol_in_adjacency(self, coordinates: tuple[int, int]) -> bool:
+        i, j = coordinates
+        stack = self.games[i][j]
+        while stack:
+            current_char = stack.pop()
+            if not current_char.isalnum() and current_char != '.':
+                return True
+            if current_char.isdigit():
+                # add neighbours
+                continue
+
 
 if __name__ == "__main__":
-    main()
+    solution = GearRatioSolution(INPUT_PATH)
+    solution.solve()

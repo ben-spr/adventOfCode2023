@@ -73,7 +73,7 @@ def task_2(games):
 
 def main():
     input_path = pathlib.Path(__file__).parent.resolve() / REL_PATH_INPUT_FILE
-    games = base_functions.read_input_file_lines_to_list(input_path)
+    games = base_functions.read_text_file_lines_to_list(input_path)
     # task_1(games)
     task_2(games)
     

@@ -7,7 +7,7 @@ import pathlib
 class Solution:
     def __init__(self, path_to_input_file: str):
         if not self.validate_input_file_path(path_to_input_file):
-            raise FileNotFoundError
+            raise FileNotFoundError(f'File not found: {path_to_input_file}')
         self.input_str = read_text_file_to_string(path_to_input_file)
         
     @abc.abstractmethod
@@ -15,7 +15,7 @@ class Solution:
         pass
 
     def validate_input_file_path(self, path_to_input_file: pathlib.Path):
-        regex = re.compile('\\/(?P<filename>.*).txt$')
+        regex = re.compile('[\\/,\\\\](?P<filename>.*).txt$')
         return not re.search(regex, str(path_to_input_file)) is None
         
 
