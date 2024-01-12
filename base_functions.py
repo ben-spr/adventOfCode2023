@@ -8,7 +8,8 @@ class Solution:
     def __init__(self, path_to_input_file: str):
         if not self.validate_input_file_path(path_to_input_file):
             raise FileNotFoundError(f'File not found: {path_to_input_file}')
-        self.input_str = read_text_file_to_string(path_to_input_file)
+        self.input_path = path_to_input_file
+        # self.input_str = read_text_file_to_string(path_to_input_file)
         
     @abc.abstractmethod
     def solve(self):
@@ -26,10 +27,8 @@ def read_text_file_to_string(path: pathlib.Path) -> str:
 
 def read_text_file_lines_to_list(path: pathlib.Path) -> list:
     filepath = path
-    line_list = []
     with open(filepath, 'r') as f:
-        for line in f:
-            line_list.append(line)
+        line_list = f.readlines()
 
     return line_list
 
